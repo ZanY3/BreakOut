@@ -9,6 +9,8 @@ public class Ball : MonoBehaviour
     GameManager gameManager;
     Player player;
     public int health = 2;
+    public AudioSource source;
+    public AudioClip hitClip;
     
 
     private void Start()
@@ -23,6 +25,10 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(!collision.gameObject.name.Contains("Brick"))
+        {
+            source.PlayOneShot(hitClip);
+        }
         var brick = collision.gameObject.GetComponent<Brick>();   
         if (brick != null)
         {

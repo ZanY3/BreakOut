@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
             hideCanvas.SetActive(false);
             loseWindow.SetActive(true);
             Time.timeScale = 0;
+            
         }
     }
     public void HealthMinus()
