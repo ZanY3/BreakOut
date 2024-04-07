@@ -172,6 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1
-  particles: {fileID: 6215081655818826043, guid: f621279c683dfe74e996b10966da5bac, type: 3}
-  source: {fileID: 0}
-  destroySound: {fileID: 8300000, guid: 67f885760e43a5f4ca9933a4242ee021, type: 3}
+  score: 100

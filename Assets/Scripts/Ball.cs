@@ -6,40 +6,33 @@ public class Ball : MonoBehaviour
 {
     Rigidbody2D rb;
     public float speed = 5;
-    GameManager gameManager;
-    Player player;
-    public int health = 2;
-    public AudioSource source;
-    public AudioClip hitClip;
-    
+    public Transform spawnPoint;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = FindAnyObjectByType<GameManager>();
-        player = FindAnyObjectByType<Player>();
+        rb.velocity = new Vector2(Random.Range(-1f, 1f), 1f);
     }
-    private void Update()
+
+
+    void Update()
     {
         rb.velocity = rb.velocity.normalized * speed;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if(!collision.gameObject.name.Contains("Brick"))
-        {
-            source.PlayOneShot(hitClip);
-        }
-        var brick = collision.gameObject.GetComponent<Brick>();   
+        var brick = other.gameObject.GetComponent<Brick>();
         if (brick != null)
         {
-            gameManager.ScorePlus();
             brick.Damage();
         }
-        if(collision.gameObject.name.Contains("LoseTrigger"))
-        {
-            player.HealthMinus();
-            health--;
-            gameManager.healthTextUpdate(health);
-        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        GameManager.lives--;
+        transform.position = spawnPoint.position;
+        rb.velocity = Vector2.up;
     }
 }
